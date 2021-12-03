@@ -1,24 +1,41 @@
 package br.com.alura.forum.modelo;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Topico {
+@Entity
+public class Topico implements Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String titulo;
 	private String mensagem;
 	private LocalDateTime dataCriacao = LocalDateTime.now();
+	@Enumerated(EnumType.STRING)
 	private StatusTopico status = StatusTopico.NAO_RESPONDIDO;
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private Usuario autor;
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private Curso curso;
+	@OneToMany(mappedBy = "topico")
 	private List<Resposta> respostas = new ArrayList<>();
 
-	public Topico(String titulo, String mensagem, Curso curso) {
+	public Topico(Long id, String titulo, String mensagem, LocalDateTime dataCriacao, StatusTopico status, Usuario autor, Curso curso) {
+		this.id = id;
 		this.titulo = titulo;
 		this.mensagem = mensagem;
+		this.dataCriacao = dataCriacao;
+		this.status = status;
+		this.autor = autor;
 		this.curso = curso;
+	}
+
+	public Topico() {
 	}
 
 	@Override

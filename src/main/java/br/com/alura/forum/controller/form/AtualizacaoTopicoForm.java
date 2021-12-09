@@ -9,10 +9,10 @@ import javax.validation.constraints.NotNull;
 
 public class AtualizacaoTopicoForm {
 
-    @NotNull @NotEmpty @Length(min=5)
+    @NotNull @NotEmpty @Length(min=2)
     private String titulo;
 
-    @NotNull @NotEmpty @Length(min=10)
+    @NotNull @NotEmpty @Length(min=2)
     private String mensagem;
 
     public String getTitulo() {
